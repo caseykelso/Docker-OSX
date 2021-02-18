@@ -168,10 +168,10 @@ RUN touch Launch.sh \
     && tee -a Launch.sh <<< 'set -eu' \
     && tee -a Launch.sh <<< 'sudo chown    $(id -u):$(id -g) /dev/kvm 2>/dev/null || true' \
     && tee -a Launch.sh <<< 'sudo chown -R $(id -u):$(id -g) /dev/snd 2>/dev/null || true' \
-    && tee -a Launch.sh <<< 'exec qemu-system-x86_64 -m ${RAM:-8}000 \' \
+    && tee -a Launch.sh <<< 'exec qemu-system-x86_64 -m ${RAM:-16}000 \' \
     && tee -a Launch.sh <<< '-cpu Penryn,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on,+pcid,+ssse3,+sse4.2,+popcnt,+avx,+aes,+xsave,+xsaveopt,check \' \
     && tee -a Launch.sh <<< '-machine q35,accel=kvm:tcg \' \
-    && tee -a Launch.sh <<< '-smp ${SMP:-4},cores=${CORES:-4} \' \
+    && tee -a Launch.sh <<< '-smp ${SMP:-4},cores=${CORES:-8} \' \
     && tee -a Launch.sh <<< '-usb -device usb-kbd -device usb-tablet \' \
     && tee -a Launch.sh <<< '-device isa-applesmc,osk=ourhardworkbythesewordsguardedpleasedontsteal\(c\)AppleComputerInc \' \
     && tee -a Launch.sh <<< '-drive if=pflash,format=raw,readonly,file=/home/arch/OSX-KVM/OVMF_CODE.fd \' \
